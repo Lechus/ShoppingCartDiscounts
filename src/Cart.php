@@ -58,7 +58,7 @@ class Cart extends ArrayObject implements CartInterface {
      * @return float The price of $product
      */
     public function getPriceOf(Product $product) {
-        foreach ($this->_items as $itemKey => $itemValue) {
+        foreach ($this->_items as $itemValue) {
             if ($itemValue['product']->getProductName() == $product->getProductName()) {
                 return number_format($this->_calculateDiscountedPrice($itemValue), 2);
             }
