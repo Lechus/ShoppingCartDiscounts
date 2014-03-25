@@ -1,8 +1,13 @@
 <?php
 
+use tax\strategy as Tax;
+
 /*** Autoload class files ***/
 function __autoload($class){
-    require(strtolower($class) . '.php');
+    $file = strtolower($class) . '.php';
+    if(file_exists(__DIR__.DIRECTORY_SEPARATOR.$file)) {
+        require_once $file;
+    }
 }
 
 $cart = new Cart();
@@ -23,3 +28,16 @@ $cart->addItem($orange, 10);
 echo $cart->getPriceOf($orange) . "\n";
 
 echo $cart->getTotalSum();
+
+/*Here will come Tax*/
+$tax = new Tax\TaxContext();
+$tax->setCountry("PL");
+
+echo "\n";
+echo "Tax in Poland: " . $tax->getTax()->count($cart->getPriceOf($orange)); // shows "23"
+echo "\n";
+$tax->setCountry("EN");
+echo "Tax in UK: " .  $tax->getTax()->count($cart->getPriceOf($orange)); // shows "20"
+echo "\n";
+$tax->setCountry("DE");
+echo "Tax in Germany: " .  $tax->getTax()->count($cart->getPriceOf($orange)); // shows "19"
