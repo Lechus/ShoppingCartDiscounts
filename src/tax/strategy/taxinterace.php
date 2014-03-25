@@ -1,11 +1,11 @@
 <?php
-
+namespace tax\strategy;
 /**
  * Description of TaxInterace
  *
  * @author lpp
  */
-class TaxInterace {
+interface TaxInterace {
     public function count($net);
     
 }
