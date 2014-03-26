@@ -34,10 +34,10 @@ $tax = new Tax\TaxContext();
 $tax->setCountry("PL");
 
 echo "\n";
-echo "Tax in Poland: " . $tax->getTax()->count($cart->getPriceOf($orange)); // shows "23"
+echo "Tax in Poland: " . $tax->getTax()->count($cart->getPriceOf($orange));
 echo "\n";
 $tax->setCountry("EN");
-echo "Tax in UK: " .  $tax->getTax()->count($cart->getPriceOf($orange)); // shows "20"
+echo "Tax in UK: " .  $tax->getTax()->count($cart->getPriceOf($orange));
 echo "\n";
 $tax->setCountry("DE");
-echo "Tax in Germany: " .  $tax->getTax()->count($cart->getPriceOf($orange)); // shows "19"
+echo "Tax in Germany: " .  $tax->getTax()->count($cart->getPriceOf($orange));
