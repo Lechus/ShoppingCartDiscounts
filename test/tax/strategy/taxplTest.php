@@ -25,7 +25,6 @@ class TaxPLTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers tax\strategy\TaxContext::setCountry
-     * @todo   Implement testSetCountry().
      */
     public function testCount() {
         echo PHP_EOL, 'Executing ',  __FUNCTION__, PHP_EOL;

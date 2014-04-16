@@ -27,7 +27,6 @@ class ProductTest extends PHPUnit_Framework_TestCase {
 
     /**
      * @covers Product::getProductName
-     * @todo   Implement testGetProductName().
      */
     public function testGetProductName() {
         echo PHP_EOL, 'Executing ',  __FUNCTION__, PHP_EOL;
@@ -37,7 +36,6 @@ class ProductTest extends PHPUnit_Framework_TestCase {
 
     /**
      * @covers Product::getPriceAndDiscounts
-     * @todo   Implement testGetPriceAndDiscounts().
      */
     public function testGetPriceAndDiscounts() {
         echo PHP_EOL, 'Executing ',  __FUNCTION__, PHP_EOL;

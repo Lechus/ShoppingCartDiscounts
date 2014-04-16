@@ -24,14 +24,6 @@ class TaxContextTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers tax\strategy\TaxContext::setCountry
-     * @todo   Implement testSetCountry().
-     */
-    public function testSetCountry() {
-        
-    }
-
-    /**
      * @expectedException InvalidArgumentException
      */
     public function testSetCountryException() {
@@ -51,7 +43,6 @@ class TaxContextTest extends \PHPUnit_Framework_TestCase {
     
     /**
      * @covers tax\strategy\TaxContext::getTax
-     * @todo   Implement testGetTax().
      */
     public function testGetTaxReturnInstanceOf() {
         echo PHP_EOL, 'Executing ', __FUNCTION__, PHP_EOL;

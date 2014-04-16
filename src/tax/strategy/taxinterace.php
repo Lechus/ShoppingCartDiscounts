@@ -1,11 +1,16 @@
-<?php
-namespace tax\strategy;
+<?php namespace tax\strategy;
+
 /**
- * Description of TaxInterace
+ * Class TaxInterace
  *
  * @author lpp
  */
 interface TaxInterace {
+
+    /**
+     * @param float $net
+     *
+     * @return float
+     */
     public function count($net);
-    
 }

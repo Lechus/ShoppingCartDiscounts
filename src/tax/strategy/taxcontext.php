@@ -1,19 +1,22 @@
 <?php namespace tax\strategy;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- * Description of TaxContex
+ * Class TaxContex
  *
  * @author lpp
  */
 class TaxContext {
 
+    /**
+     * @var TaxInterface
+     */
     private $strategy;
 
+    /**
+     * @param TaxInterface $strategy
+     *
+     * @return void
+     */
     public function setCountry($country) {
         switch ($country) {
             case "PL":
@@ -30,8 +33,18 @@ class TaxContext {
         }
     }
 
+    /**
+     * @return TaxInterface $strategy
+     */
     public function getTax() {
-        if (!$this->strategy){
+        /*
+         * Iinstead of checking if the strategy is set use NullStategy
+         *  object to handle the lack of initialization situations. 
+         * It encapsulates the implementation decisions of how to do nothing and hides 
+         * those details from the Context.
+         * Or move the Strategy in the constructor
+         */
+        if (!$this->strategy) {
             throw new \LogicException("Strategy is not set");
         }
         return $this->strategy;

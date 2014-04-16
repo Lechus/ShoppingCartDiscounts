@@ -17,8 +17,8 @@ $cart->addItem($tomato, 33);
 echo 'Tomato [33 items] price for 1 item:', $cart->getPriceOf($tomato), PHP_EOL;
 
 $orange = new Product('Orange', array('0' => 0.20, '21' => 0.18, '101' => 0.12));
-$cart->addItem($orange, 10);
-echo 'Orange [10 items] price for 1 item:',$cart->getPriceOf($orange), PHP_EOL;
+$cart->addItem($orange, 102);
+echo 'Orange [102 items] price for 1 item:',$cart->getPriceOf($orange), PHP_EOL;
 
 echo PHP_EOL, 'Your basket:', PHP_EOL;
 echo $cart->getTotalSum();
