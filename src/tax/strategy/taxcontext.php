@@ -1,5 +1,4 @@
-<?php
-namespace tax\strategy;
+<?php namespace tax\strategy;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -26,10 +25,15 @@ class TaxContext {
             case "EN":
                 $this->strategy = new TaxEN();
                 break;
+            default:
+                throw new \InvalidArgumentException('Unknown or not implemented tax for: ' . $country);
         }
     }
 
     public function getTax() {
+        if (!$this->strategy){
+            throw new \LogicException("Strategy is not set");
+        }
         return $this->strategy;
     }
 

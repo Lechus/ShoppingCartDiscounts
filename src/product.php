@@ -1,4 +1,5 @@
 <?php
+
 class Product {
   protected $_productName;
   protected $_priceAndDiscounts;
@@ -14,7 +15,6 @@ class Product {
   
   public function getPriceAndDiscounts() {
     return $this->_priceAndDiscounts;
-  }
-  
+  }  
   
 }

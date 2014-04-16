@@ -1,6 +1,4 @@
 <?php
-require_once('CartInterface.php');
-
 class Cart extends ArrayObject implements CartInterface {
 
     protected $_items;
@@ -24,11 +22,11 @@ class Cart extends ArrayObject implements CartInterface {
             $total +=  $totalForProduct;
             echo str_pad($item['amount'], 10);
             echo str_pad($item['product']->getProductName(), $maxLength+2);
-            echo 'Ł' . number_format($totalForProduct, 2);
-            echo "\n";
+            echo 'Ł', number_format($totalForProduct, 2);
+            echo PHP_EOL;
         }
-        echo str_pad('-', 10 + $maxLength+2, "-" ) . "\n";
-        echo str_pad('Total:', 10 + $maxLength+2) . 'Ł' . number_format($total, 2);
+        echo str_pad('-', 10 + $maxLength+2, "-" ), PHP_EOL;
+        echo str_pad('Total:', 10 + $maxLength+2), 'Ł', number_format($total, 2);
     }
 
     /**

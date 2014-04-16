@@ -1,43 +1,37 @@
 <?php
+require_once '/vendor/autoload.php';
 
 use tax\strategy as Tax;
-
-/*** Autoload class files ***/
-function __autoload($class){
-    $file = strtolower($class) . '.php';
-    if(file_exists(__DIR__.DIRECTORY_SEPARATOR.$file)) {
-        require_once $file;
-    }
-}
 
 $cart = new Cart();
 
 $lemon = new Product('Lemon', array('0' => 0.50, '11' => 0.45));
 $cart->addItem($lemon, 10);
-echo $cart->getPriceOf($lemon) . "\n";
+echo 'Lemon [10 items], price for 1 item:', $cart->getPriceOf($lemon), PHP_EOL;
 
 $cart->addItem($lemon, 1);
-echo $cart->getPriceOf($lemon) . "\n";
+echo 'Lemon [11 items] price for 1 item:', $cart->getPriceOf($lemon), PHP_EOL;
 
 $tomato = new Product('Tomato', array('0' => 0.20, '21' => 0.18, '101' => 0.14));
 $cart->addItem($tomato, 33);
-echo $cart->getPriceOf($tomato) . "\n";
+echo 'Tomato [33 items] price for 1 item:', $cart->getPriceOf($tomato), PHP_EOL;
 
 $orange = new Product('Orange', array('0' => 0.20, '21' => 0.18, '101' => 0.12));
 $cart->addItem($orange, 10);
-echo $cart->getPriceOf($orange) . "\n";
+echo 'Orange [10 items] price for 1 item:',$cart->getPriceOf($orange), PHP_EOL;
 
+echo PHP_EOL, 'Your basket:', PHP_EOL;
 echo $cart->getTotalSum();
 
-/*Here will come Tax*/
+/*Here will come Tax information*/
 $tax = new Tax\TaxContext();
 $tax->setCountry("PL");
 
-echo "\n";
-echo "Tax in Poland: " . $tax->getTax()->count($cart->getPriceOf($orange));
-echo "\n";
+echo PHP_EOL, PHP_EOL;
+echo "Orange: Tax in Poland: " . $tax->getTax()->count($cart->getPriceOf($orange));
+echo PHP_EOL;
 $tax->setCountry("EN");
-echo "Tax in UK: " .  $tax->getTax()->count($cart->getPriceOf($orange));
-echo "\n";
+echo "Orange: Tax in UK: " .  $tax->getTax()->count($cart->getPriceOf($orange));
+echo PHP_EOL;
 $tax->setCountry("DE");
-echo "Tax in Germany: " .  $tax->getTax()->count($cart->getPriceOf($orange));
+echo "Orange: Tax in Germany: " .  $tax->getTax()->count($cart->getPriceOf($orange));
