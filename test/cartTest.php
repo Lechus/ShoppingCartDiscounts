@@ -1,5 +1,8 @@
 <?php
 
+use LPP\Shopping\Cart;
+use LPP\Shopping\Product;
+
 class CartTest extends PHPUnit_Framework_TestCase {
 
     /**
@@ -24,7 +27,7 @@ class CartTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Cart::getTotalSum
+     * @covers LPP\Shopping\Cart::getTotalSum
      * @todo   Implement testGetTotalSum().
      */
     public function testGetTotalSum() {
@@ -35,7 +38,7 @@ class CartTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Cart::addItem
+     * @covers LPP\Shopping\Cart::addItem
      */
     public function testAddItemWithAmountLessThanZero() {
         echo "\n Executing " . __FUNCTION__ . PHP_EOL;
@@ -46,8 +49,21 @@ class CartTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($result);
     }
 
+    
+     /**
+     * @covers LPP\Shopping\Cart::addItem
+     */
+    public function testAddItemChain() {
+        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
+
+        $product = new Product('Lemon', array('0' => 0.50, '11' => 0.45));
+        $this->object->addItem($product, 1)->addItem($product, 10);
+
+        $this->assertEquals(0.45, $this->object->getPriceOf($product));
+    }
+    
     /**
-     * @covers Cart::getPriceOf
+     * @covers LPP\Shopping\Cart::getPriceOf
      * @dataProvider providerProducts
      */
     public function testGetPriceOf($productName, $priceAndDiscounts, $amount, $exceptedPrice) {

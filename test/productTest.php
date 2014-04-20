@@ -1,5 +1,7 @@
 <?php
 
+use LPP\Shopping\Product;
+
 class ProductTest extends PHPUnit_Framework_TestCase {
 
     /**
@@ -26,7 +28,7 @@ class ProductTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Product::getProductName
+     * @covers LPP\Shopping\Product::getProductName
      */
     public function testGetProductName() {
         echo PHP_EOL, 'Executing ',  __FUNCTION__, PHP_EOL;
@@ -35,7 +37,7 @@ class ProductTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Product::getPriceAndDiscounts
+     * @covers LPP\Shopping\Product::getPriceAndDiscounts
      */
     public function testGetPriceAndDiscounts() {
         echo PHP_EOL, 'Executing ',  __FUNCTION__, PHP_EOL;

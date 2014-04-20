@@ -1,4 +1,4 @@
-<?php namespace tax\strategy;
+<?php namespace LPP\Shopping\tax\strategy;
 
 class TaxPLTest extends \PHPUnit_Framework_TestCase {
 
@@ -24,7 +24,7 @@ class TaxPLTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers tax\strategy\TaxContext::setCountry
+     * @covers LPP\Shopping\tax\strategy\TaxContext::setCountry
      */
     public function testCount() {
         echo PHP_EOL, 'Executing ',  __FUNCTION__, PHP_EOL;

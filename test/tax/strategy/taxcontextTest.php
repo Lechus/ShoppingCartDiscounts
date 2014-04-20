@@ -1,4 +1,4 @@
-<?php namespace tax\strategy;
+<?php namespace LPP\Shopping\tax\strategy;
 
 class TaxContextTest extends \PHPUnit_Framework_TestCase {
 
@@ -42,7 +42,7 @@ class TaxContextTest extends \PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @covers tax\strategy\TaxContext::getTax
+     * @covers LPP\Shopping\tax\strategy\TaxContext::getTax
      */
     public function testGetTaxReturnInstanceOf() {
         echo PHP_EOL, 'Executing ', __FUNCTION__, PHP_EOL;
