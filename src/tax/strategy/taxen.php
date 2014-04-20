@@ -1,12 +1,12 @@
-<?php namespace tax\strategy;
+<?php namespace LPP\Shopping\tax\strategy;
 
 /**
  * Class TaxUK
  *
  * @author lpp
  */
-class TaxEN implements TaxInterace {
-
+class TaxEN implements TaxInterace
+{
     /**
      * {@inheritdoc}
      */
@@ -14,5 +14,4 @@ class TaxEN implements TaxInterace {
         $tax = 0.15 * $net;
         return number_format($tax, 2);
     }
-
 }

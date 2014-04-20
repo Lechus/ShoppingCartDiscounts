@@ -1,12 +1,12 @@
-<?php namespace tax\strategy;
+<?php namespace LPP\Shopping\tax\strategy;
 
 /**
  * Class TaxContex
  *
  * @author lpp
  */
-class TaxContext {
-
+class TaxContext
+{
     /**
      * @var TaxInterface
      */
@@ -17,7 +17,8 @@ class TaxContext {
      *
      * @return void
      */
-    public function setCountry($country) {
+    public function setCountry($country)
+    {
         switch ($country) {
             case "PL":
                 $this->strategy = new TaxPL();
@@ -36,11 +37,12 @@ class TaxContext {
     /**
      * @return TaxInterface $strategy
      */
-    public function getTax() {
+    public function getTax()
+    {
         /*
          * Iinstead of checking if the strategy is set use NullStategy
-         *  object to handle the lack of initialization situations. 
-         * It encapsulates the implementation decisions of how to do nothing and hides 
+         *  object to handle the lack of initialization situations.
+         * It encapsulates the implementation decisions of how to do nothing and hides
          * those details from the Context.
          * Or move the Strategy in the constructor
          */

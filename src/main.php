@@ -1,7 +1,8 @@
-<?php
+<?php namespace LPP\Shopping;
+
 require_once '/vendor/autoload.php';
 
-use tax\strategy as Tax;
+use LPP\Shopping\tax\strategy as Tax;
 
 $cart = new Cart();
 
@@ -23,7 +24,14 @@ echo 'Orange [102 items] price for 1 item:',$cart->getPriceOf($orange), PHP_EOL;
 echo PHP_EOL, 'Your basket:', PHP_EOL;
 echo $cart->getTotalSum();
 
-/*Here will come Tax information*/
+//$view = new View();
+//echo $view->render('viewfile.php', array('foo' => 'bar'));
+
+
+
+
+
+/*Here will come some Tax information*/
 $tax = new Tax\TaxContext();
 $tax->setCountry("PL");
 

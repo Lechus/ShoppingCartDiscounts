@@ -1,11 +1,12 @@
-<?php
+<?php namespace LPP\Shopping;
+
 /**
 * Interface CartInterface
 *
 * @package ShoppingCart
 */
-
-interface CartInterface {
+interface CartInterface
+{
 
 	/**
 	* Display a summary of the shopping cart

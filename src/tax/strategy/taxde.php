@@ -1,11 +1,12 @@
-<?php namespace tax\strategy;
+<?php namespace LPP\Shopping\tax\strategy;
 
 /**
  * Class TaxDE
  *
  * @author lpp
  */
-class TaxDE implements TaxInterace {
+class TaxDE implements TaxInterace
+{
 
     /**
      * {@inheritdoc}

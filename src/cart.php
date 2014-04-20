@@ -1,66 +1,78 @@
-<?php
-class Cart extends ArrayObject implements CartInterface {
+<?php namespace LPP\Shopping;
 
-    protected $_items;
+use LPP\Shopping\Utils\StringHelper;
 
-    public function __construct() {
-        $this->_items = array();
+class Cart extends \ArrayObject implements CartInterface
+{
+    protected $items;
+
+    public function __construct()
+    {
+        $this->items = array();
         /*
           Construct the underlying ArrayObject using
-          $this->_items as the foundation array. This
+          $this->items as the foundation array. This
           is important to ensure that the features
           of ArrayObject are available to your object.
          */
-        parent::__construct($this->_items);
+        parent::__construct($this->items);
     }
 
-    public function getTotalSum() {
+    public function getTotalSum()
+    {
+        $output = "";
         $total = 0;
-        $maxLength = $this->_findMaxLength();
-        foreach ($this->_items as $item) {
+        $maxLength = $this->findMaxLength();
+        foreach ($this->items as $item) {
             $totalForProduct = $this->getPriceOf($item['product']) * $item['amount'];
             $total +=  $totalForProduct;
-            echo str_pad($item['amount'], 10);
-            echo str_pad($item['product']->getProductName(), $maxLength+2);
-            echo 'Ł', number_format($totalForProduct, 2);
-            echo PHP_EOL;
+            $output .= str_pad($item['amount'], 10);
+            $output .= str_pad($item['product']->getProductName(), $maxLength+2);
+            $output .= 'Ł' . number_format($totalForProduct, 2);
+            $output .= PHP_EOL;
         }
-        echo str_pad('-', 10 + $maxLength+2, "-" ), PHP_EOL;
-        echo str_pad('Total:', 10 + $maxLength+2), 'Ł', number_format($total, 2);
+        $output .= str_pad('-', 10 + $maxLength+2, "-" ) . PHP_EOL;
+        $output .= str_pad('Total:', 10 + $maxLength+2) . 'Ł' . number_format($total, 2);
+        return $output;
     }
 
     /**
      * Add an item to the shopping cart
      *
      * @param Product $product Instance of the Product we're adding
-     * @param int $amount The amount of $product
+     * @param int     $amount  The amount of $product
      *
      * @return void
      */
-    public function addItem(Product $product, $amount) {
+    public function addItem(Product $product, $amount)
+    {
         if (0 > $amount) {
             return false;
         }
-        $productKeyInCart = $this->_searchItem($product->getProductName());
+        $productKeyInCart = $this->searchItem($product->getProductName());
         if ($productKeyInCart > -1) {
-            $this->_items[$productKeyInCart]['amount'] += $amount;
+            $this->items[$productKeyInCart]['amount'] += $amount;
         } else {
-            $this->_items[] = array('product' => $product, 'amount' => $amount);
+            $this->items[] = array('product' => $product, 'amount' => $amount);
         }
+        
+        return $this;
     }
 
     /**
      * Get the price of the product depending on how many are already in the shopping cart
      *
-     * @param Product $product Product The product to determine price for
-     * @return float The price of $product
+     * @param  Product $product Product The product to determine price for
+     * @return float   The price of $product
      */
-    public function getPriceOf(Product $product) {
-        foreach ($this->_items as $itemValue) {
+    public function getPriceOf(Product $product)
+    {
+        foreach ($this->items as $itemValue) {
             if ($itemValue['product']->getProductName() == $product->getProductName()) {
-                return number_format($this->_calculateDiscountedPrice($itemValue), 2);
+                return number_format($this->calculateDiscountedPrice($itemValue), 2);
             }
         }
+
         return false;
     }
 
@@ -70,49 +82,55 @@ class Cart extends ArrayObject implements CartInterface {
      * @param productName
      * @return int array key
      */
-    private function _searchItem($productName) {
-        if (0 > count($this->_items)) {
+    private function searchItem($productName)
+    {
+        if (0 > count($this->items)) {
             return -1;
         }
 
-        foreach ($this->_items as $key => $item) {
+        foreach ($this->items as $key => $item) {
             if ($item['product']->getProductName() === $productName) {
                 return $key;
             }
         }
     }
 
-    private function _calculateDiscountedPrice($product) {
+    private function calculateDiscountedPrice($product)
+    {
         $amount = $product['amount'];
         $discountedPrice = $product['product']->getPriceAndDiscounts()[0];
-        
+
         foreach ($product['product']->getPriceAndDiscounts() as $minAmount => $productPrice) {
             if ($amount >= $minAmount) {
                 $discountedPrice = $productPrice;
             }
         }
+
         return $discountedPrice;
     }
-    
+
      /**
      * Get the length of the longest product name in the cart
      *
      * @param none
      * @return int length of the longest product name
      */
-    private function _findMaxLength() {
+    private function findMaxLength()
+    {
         $length  = 0;
-        foreach ($this->_items as $itemValue) {
+        foreach ($this->items as $itemValue) {
             $lengthOfProductName = $this->getLengthOfString($itemValue['product']->getProductName());
             if ($length < $lengthOfProductName) {
                 $length = $lengthOfProductName;
             }
         }
+
         return $length;
     }
-    
-    private function getLengthOfString($productName) {
-        return mb_strlen($productName, 'UTF-8');
+
+    private function getLengthOfString($productName)
+    {
+        return (new StringHelper())->getLengthOfString($productName);
     }
-}
     
+}
