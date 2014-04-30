@@ -43,9 +43,13 @@ class CartTest extends PHPUnit_Framework_TestCase {
     public function testAddItemWithAmountLessThanZero() {
         echo "\n Executing " . __FUNCTION__ . PHP_EOL;
         
+        //Arrange
         $product = new Product('Lemon', array('0' => 0.50, '11' => 0.45));
+        
+        //Act
         $result = $this->object->addItem($product, -1);
 
+        //Asert
         $this->assertFalse($result);
     }
 
