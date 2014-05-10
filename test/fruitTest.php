@@ -1,11 +1,9 @@
-<?php
+<?php use LPP\Shopping\Fruit;
 
-use LPP\Shopping\Product;
-
-class ProductTest extends PHPUnit_Framework_TestCase {
+class FruitTest extends PHPUnit_Framework_TestCase {
 
     /**
-     * @var Product
+     * @var Fruit
      */
     protected $object;
 
@@ -16,7 +14,7 @@ class ProductTest extends PHPUnit_Framework_TestCase {
     protected function setUp() {
         $productName = 'Lemon';
         $priceAndDiscounts = array('0' => 0.50, '11' => 0.45);
-        $this->object = new Product($productName, $priceAndDiscounts);
+        $this->object = new Fruit($productName, $priceAndDiscounts);
     }
 
     /**
@@ -28,7 +26,7 @@ class ProductTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers LPP\Shopping\Product::getProductName
+     * @covers LPP\Shopping\Fruit::getProductName
      */
     public function testGetProductName() {
         echo PHP_EOL, 'Executing ',  __FUNCTION__, PHP_EOL;
@@ -37,7 +35,7 @@ class ProductTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers LPP\Shopping\Product::getPriceAndDiscounts
+     * @covers LPP\Shopping\Fruit::getPriceAndDiscounts
      */
     public function testGetPriceAndDiscounts() {
         echo PHP_EOL, 'Executing ',  __FUNCTION__, PHP_EOL;
@@ -45,6 +43,15 @@ class ProductTest extends PHPUnit_Framework_TestCase {
         $priceAndDiscounts = array('0' => 0.50, '11' => 0.45);
         
         $this->assertEquals($priceAndDiscounts, $this->object->getPriceAndDiscounts());
+    }
+    
+    /**
+     * @covers LPP\Shopping\Fruit::getType
+     */
+    public function testGetProductType() {
+        echo PHP_EOL, 'Executing ',  __FUNCTION__, PHP_EOL;
+        
+        $this->assertEquals('fruit', $this->object->getProductType());
     }
 
 }
