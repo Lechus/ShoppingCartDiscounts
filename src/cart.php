@@ -76,6 +76,17 @@ class Cart extends \ArrayObject implements CartInterface
         return false;
     }
 
+    /**
+     * Count Items in Cart
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->items);
+    }
+
+
+    
      /**
      * Get the key of product in the cart
      *

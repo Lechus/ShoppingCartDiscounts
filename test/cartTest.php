@@ -3,7 +3,8 @@
 use LPP\Shopping\Cart;
 use LPP\Shopping\Product;
 
-class CartTest extends PHPUnit_Framework_TestCase {
+class CartTest extends PHPUnit_Framework_TestCase
+{
 
     /**
      * @var Cart
@@ -14,7 +15,8 @@ class CartTest extends PHPUnit_Framework_TestCase {
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp() {
+    protected function setUp()
+    {
         $this->object = new Cart;
     }
 
@@ -22,15 +24,25 @@ class CartTest extends PHPUnit_Framework_TestCase {
      * Tears down the fixture, for example, closes a network connection.
      * This method is called after a test is executed.
      */
-    protected function tearDown() {
+    protected function tearDown()
+    {
         
+    }
+
+    public function testCartIsInitiallyEmpty()
+    {
+        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
+
+        //Asert
+        $this->assertEquals(0, $this->object->count());
     }
 
     /**
      * @covers LPP\Shopping\Cart::getTotalSum
      * @todo   Implement testGetTotalSum().
      */
-    public function testGetTotalSum() {
+    public function testGetTotalSum()
+    {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
                 'This test has not been implemented yet.'
@@ -40,12 +52,13 @@ class CartTest extends PHPUnit_Framework_TestCase {
     /**
      * @covers LPP\Shopping\Cart::addItem
      */
-    public function testAddItemWithAmountLessThanZero() {
+    public function testAddItemWithAmountLessThanZero()
+    {
         echo "\n Executing " . __FUNCTION__ . PHP_EOL;
-        
+
         //Arrange
         $product = new Product('Lemon', array('0' => 0.50, '11' => 0.45));
-        
+
         //Act
         $result = $this->object->addItem($product, -1);
 
@@ -53,11 +66,11 @@ class CartTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($result);
     }
 
-    
-     /**
+    /**
      * @covers LPP\Shopping\Cart::addItem
      */
-    public function testAddItemChain() {
+    public function testAddItemChain()
+    {
         echo "\n Executing " . __FUNCTION__ . PHP_EOL;
 
         $product = new Product('Lemon', array('0' => 0.50, '11' => 0.45));
@@ -65,12 +78,13 @@ class CartTest extends PHPUnit_Framework_TestCase {
 
         $this->assertEquals(0.45, $this->object->getPriceOf($product));
     }
-    
+
     /**
      * @covers LPP\Shopping\Cart::getPriceOf
      * @dataProvider providerProducts
      */
-    public function testGetPriceOf($productName, $priceAndDiscounts, $amount, $exceptedPrice) {
+    public function testGetPriceOf($productName, $priceAndDiscounts, $amount, $exceptedPrice)
+    {
         //echo "\n Executing " . __FUNCTION__ . PHP_EOL;
 
         $product = new Product($productName, $priceAndDiscounts);
@@ -81,7 +95,8 @@ class CartTest extends PHPUnit_Framework_TestCase {
 
     /* productName, (product)priceAndDiscounts, (product) Amount, (product) Excepted Price Per Item */
 
-    public function providerProducts() {
+    public function providerProducts()
+    {
 
         return array(
             array('Lemon', array('0' => 0.50, '11' => 0.45), 0, 0.50),
