@@ -2,9 +2,15 @@
 
 use LPP\Shopping\Utils\StringHelper;
 
+/**
+ * Cart
+ *
+ * Represents a storage container for shopper to keep a collection of items
+ */
 class Cart extends \ArrayObject implements CartInterface
 {
-    protected $items;
+    /** @var array */
+    private $items;
 
     public function __construct()
     {
@@ -77,7 +83,8 @@ class Cart extends \ArrayObject implements CartInterface
     }
 
     /**
-     * Count Items in Cart
+     * Returns the number of items currently in the cart
+     *
      * @return int
      */
     public function count()

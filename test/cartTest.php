@@ -9,7 +9,7 @@ class CartTest extends PHPUnit_Framework_TestCase
     /**
      * @var Cart
      */
-    protected $object;
+    protected $cart;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -17,7 +17,7 @@ class CartTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->object = new Cart;
+        $this->cart = new Cart;
     }
 
     /**
@@ -26,15 +26,90 @@ class CartTest extends PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        
+        $this->cart = null;
     }
 
+    
+    public function testCartImplementsArrayObject()
+    {
+        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
+        $this->assertInstanceOf('ArrayObject', $this->cart);
+    }
+    
+    
+    /**
+     * @covers LPP\Shopping\Cart::count
+     */
     public function testCartIsInitiallyEmpty()
     {
         echo "\n Executing " . __FUNCTION__ . PHP_EOL;
 
         //Asert
-        $this->assertEquals(0, $this->object->count());
+        $this->assertEquals(0, $this->cart->count());
+    }
+
+    /**
+     * @covers LPP\Shopping\Cart::count
+     * @covers LPP\Shopping\Cart::addItem
+     */
+    public function testCanAddOneItemToCart()
+    {
+        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
+
+        //Arrange
+        $product = $this->getSampleProduct();
+
+        //Act
+        $result = $this->cart->addItem($product, 1);
+
+        //Asert
+        $this->assertEquals(1, $this->cart->count());  
+    }
+    
+    /**
+     * @covers LPP\Shopping\Cart::addItem
+     */
+    public function testAddItemWithAmountLessThanZero()
+    {
+        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
+
+        //Arrange
+        $product = $this->getSampleProduct();
+
+        //Act
+        $result = $this->cart->addItem($product, -1);
+
+        //Asert
+        $this->assertFalse($result);
+    }
+
+    /**
+     * @covers LPP\Shopping\Cart::addItem
+     * @covers LPP\Shopping\Cart::getPriceOf
+     */
+    public function testAddItemChain()
+    {
+        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
+
+        $product = $this->getSampleProduct();
+        $this->cart->addItem($product, 1)->addItem($product, 10);
+
+        $this->assertEquals(0.45, $this->cart->getPriceOf($product));
+    }
+
+    /**
+     * @covers LPP\Shopping\Cart::getPriceOf
+     * @covers LPP\Shopping\Cart::addItem
+     * @dataProvider providerProducts
+     */
+    public function testGetPriceOf($productName, $priceAndDiscounts, $amount, $exceptedPrice)
+    {
+        //echo "\n Executing " . __FUNCTION__ . PHP_EOL;
+
+        $product = new Product($productName, $priceAndDiscounts);
+        $this->cart->addItem($product, $amount);
+
+        $this->assertEquals($exceptedPrice, $this->cart->getPriceOf($product));
     }
 
     /**
@@ -49,52 +124,14 @@ class CartTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers LPP\Shopping\Cart::addItem
-     */
-    public function testAddItemWithAmountLessThanZero()
+
+    public function getSampleProduct()
     {
-        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
-
-        //Arrange
-        $product = new Product('Lemon', array('0' => 0.50, '11' => 0.45));
-
-        //Act
-        $result = $this->object->addItem($product, -1);
-
-        //Asert
-        $this->assertFalse($result);
+        return new Product('Lemon', array('0' => 0.50, '11' => 0.45));
     }
 
-    /**
-     * @covers LPP\Shopping\Cart::addItem
-     */
-    public function testAddItemChain()
-    {
-        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
-
-        $product = new Product('Lemon', array('0' => 0.50, '11' => 0.45));
-        $this->object->addItem($product, 1)->addItem($product, 10);
-
-        $this->assertEquals(0.45, $this->object->getPriceOf($product));
-    }
-
-    /**
-     * @covers LPP\Shopping\Cart::getPriceOf
-     * @dataProvider providerProducts
-     */
-    public function testGetPriceOf($productName, $priceAndDiscounts, $amount, $exceptedPrice)
-    {
-        //echo "\n Executing " . __FUNCTION__ . PHP_EOL;
-
-        $product = new Product($productName, $priceAndDiscounts);
-        $this->object->addItem($product, $amount);
-
-        $this->assertEquals($exceptedPrice, $this->object->getPriceOf($product));
-    }
 
     /* productName, (product)priceAndDiscounts, (product) Amount, (product) Excepted Price Per Item */
-
     public function providerProducts()
     {
 
