@@ -1,7 +1,6 @@
 <?php
 
 use LPP\Shopping\Cart;
-use LPP\Shopping\Fruit;
 
 class CartTest extends PHPUnit_Framework_TestCase
 {
