@@ -1,6 +1,6 @@
 <?php namespace LPP\Shopping;
 
-interface Product {
+interface ProductInterface {
 
     /**
      * Return product name

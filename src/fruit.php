@@ -1,6 +1,6 @@
 <?php namespace LPP\Shopping;
 
-class Fruit implements Product
+class Fruit implements ProductInterface
 {
 
     private $productType = 'fruit';

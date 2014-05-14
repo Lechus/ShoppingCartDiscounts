@@ -50,7 +50,7 @@ class Cart extends \ArrayObject implements CartInterface
      *
      * @return void
      */
-    public function addItem(Product $product, $amount)
+    public function addItem(ProductInterface $product, $amount)
     {
         if (0 > $amount) {
             return false;
@@ -71,7 +71,7 @@ class Cart extends \ArrayObject implements CartInterface
      * @param  Product $product Product The product to determine price for
      * @return float   The price of $product
      */
-    public function getPriceOf(Product $product)
+    public function getPriceOf(ProductInterface $product)
     {
         foreach ($this->items as $itemValue) {
             if ($itemValue['product']->getProductName() == $product->getProductName()) {

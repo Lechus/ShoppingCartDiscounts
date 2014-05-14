@@ -22,7 +22,7 @@ interface CartInterface
 	*
 	* @return void
 	*/
-	public function addItem(Product $product, $amount);
+	public function addItem(ProductInterface $product, $amount);
 
 	/**
 	* Get the price of the product depending on how many are already in the shopping cart
@@ -30,5 +30,5 @@ interface CartInterface
 	* @param Product $product Product The product to determine price for
 	* @return float The price of $product
 	*/
-	public function getPriceOf(Product $product);
+	public function getPriceOf(ProductInterface $product);
 }

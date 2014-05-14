@@ -1,7 +1,7 @@
 <?php
 
 use LPP\Shopping\Cart;
-use LPP\Shopping\Product;
+use LPP\Shopping\Fruit;
 
 class CartTest extends PHPUnit_Framework_TestCase
 {
@@ -60,7 +60,7 @@ class CartTest extends PHPUnit_Framework_TestCase
         $product = $this->getSampleProduct();
 
         //Act
-        $result = $this->cart->addItem($product, 1);
+        $this->cart->addItem($product, 1);
 
         //Asert
         $this->assertEquals(1, $this->cart->count());  
@@ -106,7 +106,7 @@ class CartTest extends PHPUnit_Framework_TestCase
     {
         //echo "\n Executing " . __FUNCTION__ . PHP_EOL;
 
-        $product = new Product($productName, $priceAndDiscounts);
+        $product = $this->getSampleProduct($productName, $priceAndDiscounts);
         $this->cart->addItem($product, $amount);
 
         $this->assertEquals($exceptedPrice, $this->cart->getPriceOf($product));
@@ -125,11 +125,22 @@ class CartTest extends PHPUnit_Framework_TestCase
     }
 
 
-    public function getSampleProduct()
+    private function getSampleProduct($productName = 'Lemon', $priceAndDiscounts = array('0' => 0.50, '11' => 0.45))
     {
-        return new Product('Lemon', array('0' => 0.50, '11' => 0.45));
+        $product = $this->getMockBuilder('\\Lpp\\Shopping\\ProductInterface')
+                ->setMethods(array('getProductName', 'getPriceAndDiscounts'))
+                ->getMock();
+        $product->expects($this->any())
+                ->method('getPrice')
+                ->will($this->returnValue($productName));
+        
+        $product->expects($this->any())
+                ->method('getPriceAndDiscounts')
+                ->will($this->returnValue($priceAndDiscounts));
+        
+        return $product;
     }
-
+    
 
     /* productName, (product)priceAndDiscounts, (product) Amount, (product) Excepted Price Per Item */
     public function providerProducts()
@@ -165,5 +176,5 @@ class CartTest extends PHPUnit_Framework_TestCase
             array('Tomato', array('0' => 0.20, '21' => 0.18, '101' => 0.12), 1000, 0.12)
         );
     }
-
+    
 }
