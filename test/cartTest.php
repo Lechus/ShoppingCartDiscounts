@@ -82,20 +82,7 @@ class CartTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($result);
     }
 
-    /**
-     * @covers LPP\Shopping\Cart::addItem
-     * @covers LPP\Shopping\Cart::getPriceOf
-     */
-    public function testAddItemChain()
-    {
-        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
-
-        $product = $this->getSampleProduct();
-        $this->cart->addItem($product, 1)->addItem($product, 10);
-
-        $this->assertEquals(0.45, $this->cart->getPriceOf($product));
-        $this->assertEquals(1, $this->cart->count());
-    }
+  
 
     /**
      * @covers LPP\Shopping\Cart::getPriceOf
@@ -112,6 +99,21 @@ class CartTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($exceptedPrice, $this->cart->getPriceOf($product));
     }
 
+      /**
+     * @covers LPP\Shopping\Cart::addItem
+     * @covers LPP\Shopping\Cart::getPriceOf
+     */
+    public function testAddItemChain()
+    {
+        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
+
+        $product = $this->getSampleProduct();
+        $this->cart->addItem($product, 1)->addItem($product, 10);
+
+        $this->assertEquals(0.45, $this->cart->getPriceOf($product));
+        $this->assertEquals(1, $this->cart->count());
+    }
+    
     /**
      * @covers LPP\Shopping\Cart::getTotalSum
      * @todo   Implement testGetTotalSum().
