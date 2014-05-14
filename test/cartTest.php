@@ -94,6 +94,7 @@ class CartTest extends PHPUnit_Framework_TestCase
         $this->cart->addItem($product, 1)->addItem($product, 10);
 
         $this->assertEquals(0.45, $this->cart->getPriceOf($product));
+        $this->assertEquals(1, $this->cart->count());
     }
 
     /**
