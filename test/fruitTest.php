@@ -27,7 +27,7 @@ class FruitTest extends PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        
+        $this->object = null;
     }
 
     /**
@@ -35,7 +35,7 @@ class FruitTest extends PHPUnit_Framework_TestCase
      */
     public function testGetProductName()
     {
-        echo PHP_EOL, 'Executing ', __FUNCTION__, PHP_EOL;
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
         $this->assertEquals('Lemon', $this->object->getProductName());
     }
@@ -45,7 +45,7 @@ class FruitTest extends PHPUnit_Framework_TestCase
      */
     public function testGetPriceAndDiscounts()
     {
-        echo PHP_EOL, 'Executing ', __FUNCTION__, PHP_EOL;
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
         $priceAndDiscounts = array('0' => 0.50, '11' => 0.45);
 
@@ -57,7 +57,7 @@ class FruitTest extends PHPUnit_Framework_TestCase
      */
     public function testGetProductType()
     {
-        echo PHP_EOL, 'Executing ', __FUNCTION__, PHP_EOL;
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
         $this->assertEquals('fruit', $this->object->getProductType());
     }

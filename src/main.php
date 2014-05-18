@@ -28,9 +28,6 @@ echo $cart->getTotalSum();
 //echo $view->render('viewfile.php', array('foo' => 'bar'));
 
 
-
-
-
 /*Here will come some Tax information*/
 $tax = new Tax\TaxContext();
 $tax->setCountry("PL");

@@ -2,7 +2,6 @@
 
 class Fruit implements ProductInterface
 {
-
     private $productType = 'fruit';
     private $productName;
     private $priceAndDiscounts;

@@ -4,7 +4,6 @@ use LPP\Shopping\Cart;
 
 class CartTest extends PHPUnit_Framework_TestCase
 {
-
     /**
      * @var Cart
      */
@@ -28,20 +27,24 @@ class CartTest extends PHPUnit_Framework_TestCase
         $this->cart = null;
     }
 
+    public static function tearDownAfterClass()
+    {
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
+        
+    }
     
     public function testCartImplementsArrayObject()
     {
-        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
         $this->assertInstanceOf('ArrayObject', $this->cart);
     }
-    
-    
+        
     /**
      * @covers LPP\Shopping\Cart::count
      */
     public function testCartIsInitiallyEmpty()
     {
-        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
         //Asert
         $this->assertEquals(0, $this->cart->count());
@@ -53,7 +56,7 @@ class CartTest extends PHPUnit_Framework_TestCase
      */
     public function testCanAddOneItemToCart()
     {
-        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
         //Arrange
         $product = $this->getSampleProduct();
@@ -70,7 +73,7 @@ class CartTest extends PHPUnit_Framework_TestCase
      */
     public function testAddItemWithAmountLessThanZero()
     {
-        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
         //Arrange
         $product = $this->getSampleProduct();
@@ -82,30 +85,27 @@ class CartTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($result);
     }
 
-  
-
     /**
      * @covers LPP\Shopping\Cart::getPriceOf
      * @covers LPP\Shopping\Cart::addItem
      * @dataProvider providerProducts
      */
+    /*
     public function testGetPriceOf($productName, $priceAndDiscounts, $amount, $exceptedPrice)
     {
-        //echo "\n Executing " . __FUNCTION__ . PHP_EOL;
-
         $product = $this->getSampleProduct($productName, $priceAndDiscounts);
         $this->cart->addItem($product, $amount);
 
         $this->assertEquals($exceptedPrice, $this->cart->getPriceOf($product));
     }
-
-      /**
+*/
+    /**
      * @covers LPP\Shopping\Cart::addItem
      * @covers LPP\Shopping\Cart::getPriceOf
      */
     public function testAddItemChain()
     {
-        echo "\n Executing " . __FUNCTION__ . PHP_EOL;
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
         $product = $this->getSampleProduct();
         $this->cart->addItem($product, 1)->addItem($product, 10);
@@ -126,11 +126,10 @@ class CartTest extends PHPUnit_Framework_TestCase
         );
     }
 
-
     private function getSampleProduct($productName = 'Lemon', $priceAndDiscounts = array('0' => 0.50, '11' => 0.45))
     {
         $product = $this->getMockBuilder('\\Lpp\\Shopping\\ProductInterface')
-                ->setMethods(array('getProductName', 'getPriceAndDiscounts'))
+                ->setMethods(array('getProductName', 'getPriceAndDiscounts', 'getProductType'))
                 ->getMock();
         $product->expects($this->any())
                 ->method('getPrice')
@@ -139,15 +138,17 @@ class CartTest extends PHPUnit_Framework_TestCase
         $product->expects($this->any())
                 ->method('getPriceAndDiscounts')
                 ->will($this->returnValue($priceAndDiscounts));
-        
+
+        $product->expects($this->any())
+                ->method('getProductType')
+                ->will($this->returnValue('fruit'));
+
         return $product;
     }
     
-
     /* productName, (product)priceAndDiscounts, (product) Amount, (product) Excepted Price Per Item */
     public function providerProducts()
     {
-
         return array(
             array('Lemon', array('0' => 0.50, '11' => 0.45), 0, 0.50),
             array('Lemon', array('0' => 0.50, '11' => 0.45), 1, 0.50),

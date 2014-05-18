@@ -27,7 +27,7 @@ class TaxContextTest extends \PHPUnit_Framework_TestCase {
      * @expectedException InvalidArgumentException
      */
     public function testSetCountryException() {
-        echo PHP_EOL, 'Executing ', __FUNCTION__, PHP_EOL;
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
         $this->object->setCountry("Unknown");
     }
@@ -36,7 +36,7 @@ class TaxContextTest extends \PHPUnit_Framework_TestCase {
      * @expectedException LogicException
      */
     public function testGetTaxException() {
-        echo PHP_EOL, 'Executing ', __FUNCTION__, PHP_EOL;
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
         $this->object->getTax();
     }
@@ -45,7 +45,7 @@ class TaxContextTest extends \PHPUnit_Framework_TestCase {
      * @covers LPP\Shopping\tax\strategy\TaxContext::getTax
      */
     public function testGetTaxReturnInstanceOf() {
-        echo PHP_EOL, 'Executing ', __FUNCTION__, PHP_EOL;
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
         $this->object->setCountry("PL");
         

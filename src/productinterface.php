@@ -1,6 +1,12 @@
 <?php namespace LPP\Shopping;
 
-interface ProductInterface {
+/**
+* Interface ProductInterface
+*
+* @package ShoppingCart
+*/
+interface ProductInterface
+{
 
     /**
      * Return product name
@@ -14,11 +20,10 @@ interface ProductInterface {
      * @return array The price and discounts of $product
      */
     public function getPriceAndDiscounts();
-    
+
     /**
      * Return product type name
      * @return string name
      */
     public function getProductType();
-
 }

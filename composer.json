@@ -2,7 +2,7 @@
     "name": "Lechus/ShoppingCartDiscounts",
     "description": "Sample ShoppingCart with tests",
     "require-dev": {
-        "phpunit/phpunit": "4.0.*"
+        "phpunit/phpunit": "4.1.*"
     },
     "license": "MIT",
     "authors": [

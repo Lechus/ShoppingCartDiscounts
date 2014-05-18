@@ -48,7 +48,7 @@ class Cart extends \ArrayObject implements CartInterface
      * @param Product $product Instance of the Product we're adding
      * @param int     $amount  The amount of $product
      *
-     * @return void
+     * @return self
      */
     public function addItem(ProductInterface $product, $amount)
     {
@@ -91,8 +91,6 @@ class Cart extends \ArrayObject implements CartInterface
     {
         return count($this->items);
     }
-
-
     
      /**
      * Get the key of product in the cart
