@@ -35,4 +35,14 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(5, $this->object->getLengthOfString("£4.95"));
     }
 
+
+    /**
+     * @covers LPP\Shopping\Utils\StringHelper::getLengthOfString
+     */
+    public function testGetLengthOfLatinString()
+    {
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
+        $this->assertEquals(3, $this->object->getLengthOfString("495"));
+    }
+
 }

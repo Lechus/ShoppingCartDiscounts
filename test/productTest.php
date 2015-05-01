@@ -32,9 +32,9 @@ class ProductTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LPP\Shopping\Fruit::getProductName
+     * @covers LPP\Shopping\Product::getName
      */
-    public function testGetProductName()
+    public function testGetName()
     {
         echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
@@ -42,21 +42,21 @@ class ProductTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers LPP\Shopping\Fruit::getPriceAndDiscounts
+     * @covers LPP\Shopping\Product::getDiscounts
      */
-    public function testGetPriceAndDiscounts()
+    public function testGetDiscounts()
     {
         echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
-        $priceAndDiscounts = array('11' => 0.45);
+        $discounts = array('11' => 0.45);
 
-        $this->assertEquals($priceAndDiscounts, $this->object->getDiscounts());
+        $this->assertEquals($discounts, $this->object->getDiscounts());
     }
 
     /**
-     * @covers LPP\Shopping\Fruit::getType
+     * @covers LPP\Shopping\Product::getUnitPrice
      */
-    public function testGetProductType()
+    public function testGetUnitPrice()
     {
         echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 

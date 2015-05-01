@@ -139,6 +139,24 @@ class CartTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0.45, $this->cart->getPriceOf($product));
     }
 
+
+    /**
+     * @covers LPP\Shopping\Cart::updateItem
+     * @covers LPP\Shopping\Cart::getPriceOf
+     * @covers LPP\Shopping\Cart::addItem
+     */
+    public function testUpdateProductQuantityToZeroREmoveItFromCart()
+    {
+        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
+
+        $product = $this->getSampleProduct();
+
+        $this->cart->addItem($product, 1);
+        $this->cart->updateItem($product, 0);
+
+        $this->assertEquals(0, $this->cart->count());
+    }
+
     /**
      * @covers LPP\Shopping\Cart::getTotalSum
      */

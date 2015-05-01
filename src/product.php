@@ -28,7 +28,7 @@ class Product
     /**
      * Get the price and discounts of the product depending on quantity
      *
-     * @return array The price and discounts of $product
+     * @return array Discounts for $product based on quantity
      */
     public function getDiscounts()
     {

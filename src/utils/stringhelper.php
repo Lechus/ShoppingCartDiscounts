@@ -1,4 +1,4 @@
-<?php  namespace LPP\Shopping\Utils;
+<?php namespace LPP\Shopping\Utils;
 
 /**
  * Description of StringHelper
@@ -14,7 +14,7 @@ class StringHelper
             return mb_strlen($input, mb_detect_encoding($input));
         } else {
             if (preg_match('!!u', $input)) {
-                // this is utf-8
+                // this looks like utf-8
                 return strlen(utf8_decode($input));
             } else {
                 // not utf-8 so should be ISO-8859-1
