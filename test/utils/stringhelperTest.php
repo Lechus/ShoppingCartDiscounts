@@ -32,7 +32,7 @@ class StringHelperTest extends \PHPUnit_Framework_TestCase
     public function testGetLengthOfString()
     {
         echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
-        $this->assertEquals(3, $this->object->getLengthOfString("ółę"));
+        $this->assertEquals(5, $this->object->getLengthOfString("£4.95"));
     }
 
 }

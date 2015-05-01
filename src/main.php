@@ -1,23 +1,23 @@
 <?php namespace LPP\Shopping;
 
-require_once '/vendor/autoload.php';
+require_once '../vendor/autoload.php';
 
 use LPP\Shopping\tax\strategy as Tax;
 
 $cart = new Cart();
 
-$lemon = new Fruit('Lemon', array('0' => 0.50, '11' => 0.45));
+$lemon = new Product('Lemon', 0.50,  array('11' => 0.45));
 $cart->addItem($lemon, 10);
 echo 'Lemon [10 items], price for 1 item:', $cart->getPriceOf($lemon), PHP_EOL;
 
 $cart->addItem($lemon, 1);
 echo 'Lemon [11 items] price for 1 item:', $cart->getPriceOf($lemon), PHP_EOL;
 
-$tomato = new Fruit('Tomato', array('0' => 0.20, '21' => 0.18, '101' => 0.14));
+$tomato = new Product('Tomato', 0.20, array('21' => 0.18, '101' => 0.14));
 $cart->addItem($tomato, 33);
 echo 'Tomato [33 items] price for 1 item:', $cart->getPriceOf($tomato), PHP_EOL;
 
-$orange = new Fruit('Orange', array('0' => 0.20, '21' => 0.18, '101' => 0.12));
+$orange = new Product('Orange', 0.20, array('21' => 0.18, '101' => 0.12));
 $cart->addItem($orange, 102);
 echo 'Orange [102 items] price for 1 item:',$cart->getPriceOf($orange), PHP_EOL;
 

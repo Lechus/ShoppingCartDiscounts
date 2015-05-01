@@ -5,11 +5,22 @@
  *
  * @author lpp
  */
-class StringHelper {
+class StringHelper
+{
 
-    public function getLengthOfString($productName)
+    public function getLengthOfString($input)
     {
-        return mb_strlen($productName, 'UTF-8');
+        if (function_exists('mb_strlen')) {
+            return mb_strlen($input, mb_detect_encoding($input));
+        } else {
+            if (preg_match('!!u', $input)) {
+                // this is utf-8
+                return strlen(utf8_decode($input));
+            } else {
+                // not utf-8 so should be ISO-8859-1
+                return strlen($input);
+            }
+        }
     }
 
 }

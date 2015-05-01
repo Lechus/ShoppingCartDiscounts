@@ -10,7 +10,7 @@ use LPP\Shopping\Utils\StringHelper;
 class Cart extends \ArrayObject implements CartInterface
 {
     /** @var array */
-    private $items;
+    protected $items = array();
 
     public function __construct()
     {
@@ -30,15 +30,15 @@ class Cart extends \ArrayObject implements CartInterface
         $total = 0;
         $maxLength = $this->findMaxLength();
         foreach ($this->items as $item) {
-            $totalForProduct = $this->getPriceOf($item['product']) * $item['amount'];
-            $total +=  $totalForProduct;
-            $output .= str_pad($item['amount'], 10);
-            $output .= str_pad($item['product']->getProductName(), $maxLength+2);
-            $output .= 'Ł' . number_format($totalForProduct, 2);
+            $totalForProduct = $this->getPriceOf($item['product']) * $item['quantity'];
+            $total += $totalForProduct;
+            $output .= str_pad($item['quantity'], 10);
+            $output .= str_pad($item['product']->getName(), $maxLength + 2);
+            $output .= '£' . number_format($totalForProduct, 2);
             $output .= PHP_EOL;
         }
-        $output .= str_pad('-', 10 + $maxLength+2, "-" ) . PHP_EOL;
-        $output .= str_pad('Total:', 10 + $maxLength+2) . 'Ł' . number_format($total, 2);
+        $output .= str_pad('-', 10 + $maxLength + 2, "-") . PHP_EOL;
+        $output .= str_pad('Total:', 10 + $maxLength + 2) . '£' . number_format($total, 2);
         return $output;
     }
 
@@ -46,22 +46,51 @@ class Cart extends \ArrayObject implements CartInterface
      * Add an item to the shopping cart
      *
      * @param Product $product Instance of the Product we're adding
-     * @param int     $amount  The amount of $product
+     * @param int $quantity The quantity of $product
      *
      * @return self
      */
-    public function addItem(ProductInterface $product, $amount)
+    public function addItem(Product $product, $quantity)
     {
-        if (0 > $amount) {
+        if (0 >= $quantity) {
             return false;
         }
-        $productKeyInCart = $this->searchItem($product->getProductName());
+        $productKeyInCart = $this->searchItem($product->getName());
         if ($productKeyInCart > -1) {
-            $this->items[$productKeyInCart]['amount'] += $amount;
+            $this->items[$productKeyInCart]['quantity'] += $quantity;
         } else {
-            $this->items[] = array('product' => $product, 'amount' => $amount);
+            $this->items[] = array('product' => $product, 'quantity' => $quantity);
         }
-        
+
+        return $this;
+    }
+
+    public function updateItem(Product $product, $quantity)
+    {
+        if (0 === $quantity) {
+            return $this->deleteItem($product);
+        }
+
+        $productKeyInCart = $this->searchItem($product->getName());
+        if (0 > $productKeyInCart) {
+            return false;
+        }
+        if (($quantity > 0) && ($quantity != $this->items[$productKeyInCart]['quantity'])) {
+            $this->items[$productKeyInCart]['quantity'] = $quantity;
+        }
+
+        return $this;
+    }
+
+    public function deleteItem(Product $product)
+    {
+        $productKeyInCart = $this->searchItem($product->getName());
+        if (0 > $productKeyInCart) {
+            return false;
+        }
+
+        unset($this->items[$productKeyInCart]);
+
         return $this;
     }
 
@@ -71,10 +100,10 @@ class Cart extends \ArrayObject implements CartInterface
      * @param  Product $product Product The product to determine price for
      * @return float   The price of $product
      */
-    public function getPriceOf(ProductInterface $product)
+    public function getPriceOf(Product $product)
     {
         foreach ($this->items as $itemValue) {
-            if ($itemValue['product']->getProductName() == $product->getProductName()) {
+            if ($itemValue['product']->getName() == $product->getName()) {
                 return number_format($this->calculateDiscountedPrice($itemValue), 2);
             }
         }
@@ -91,8 +120,8 @@ class Cart extends \ArrayObject implements CartInterface
     {
         return count($this->items);
     }
-    
-     /**
+
+    /**
      * Get the key of product in the cart
      *
      * @param productName
@@ -105,7 +134,7 @@ class Cart extends \ArrayObject implements CartInterface
         }
 
         foreach ($this->items as $key => $item) {
-            if ($item['product']->getProductName() === $productName) {
+            if ($item['product']->getName() === $productName) {
                 return $key;
             }
         }
@@ -113,10 +142,10 @@ class Cart extends \ArrayObject implements CartInterface
 
     private function calculateDiscountedPrice($product)
     {
-        $amount = $product['amount'];
-        $discountedPrice = $product['product']->getPriceAndDiscounts()[0];
+        $amount = $product['quantity'];
+        $discountedPrice = $product['product']->getUnitPrice();
 
-        foreach ($product['product']->getPriceAndDiscounts() as $minAmount => $productPrice) {
+        foreach ($product['product']->getDiscounts() as $minAmount => $productPrice) {
             if ($amount >= $minAmount) {
                 $discountedPrice = $productPrice;
             }
@@ -125,7 +154,7 @@ class Cart extends \ArrayObject implements CartInterface
         return $discountedPrice;
     }
 
-     /**
+    /**
      * Get the length of the longest product name in the cart
      *
      * @param none
@@ -133,9 +162,9 @@ class Cart extends \ArrayObject implements CartInterface
      */
     private function findMaxLength()
     {
-        $length  = 0;
+        $length = 0;
         foreach ($this->items as $itemValue) {
-            $lengthOfProductName = $this->getLengthOfString($itemValue['product']->getProductName());
+            $lengthOfProductName = $this->getLengthOfString($itemValue['product']->getName());
             if ($length < $lengthOfProductName) {
                 $length = $lengthOfProductName;
             }
@@ -148,5 +177,5 @@ class Cart extends \ArrayObject implements CartInterface
     {
         return (new StringHelper())->getLengthOfString($productName);
     }
-    
+
 }

@@ -1,8 +1,8 @@
 <?php namespace LPP\Shopping;
 
-class Fruit implements ProductInterface
+class Fruit
 {
-    private $productType = 'fruit';
+    private $unitPrice;
     private $productName;
     private $priceAndDiscounts;
 
@@ -31,9 +31,9 @@ class Fruit implements ProductInterface
     /**
      * {@inheritdoc}
      */
-    public function getProductType()
+    public function getUnitPrice()
     {
-        return $this->productType;
+        return $this->unitPrice;
     }
 
 }

@@ -1,12 +1,12 @@
 <?php
 
-use LPP\Shopping\Fruit;
+use LPP\Shopping\Product;
 
-class FruitTest extends PHPUnit_Framework_TestCase
+class ProductTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var Fruit
+     * @var Product
      */
     protected $object;
 
@@ -17,8 +17,9 @@ class FruitTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $productName = 'Lemon';
-        $priceAndDiscounts = array('0' => 0.50, '11' => 0.45);
-        $this->object = new Fruit($productName, $priceAndDiscounts);
+        $productUnitPrice = 0.50;
+        $priceAndDiscounts = array( '11' => 0.45);
+        $this->object = new Product($productName, $productUnitPrice, $priceAndDiscounts);
     }
 
     /**
@@ -37,7 +38,7 @@ class FruitTest extends PHPUnit_Framework_TestCase
     {
         echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
-        $this->assertEquals('Lemon', $this->object->getProductName());
+        $this->assertEquals('Lemon', $this->object->getName());
     }
 
     /**
@@ -47,9 +48,9 @@ class FruitTest extends PHPUnit_Framework_TestCase
     {
         echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
-        $priceAndDiscounts = array('0' => 0.50, '11' => 0.45);
+        $priceAndDiscounts = array('11' => 0.45);
 
-        $this->assertEquals($priceAndDiscounts, $this->object->getPriceAndDiscounts());
+        $this->assertEquals($priceAndDiscounts, $this->object->getDiscounts());
     }
 
     /**
@@ -59,7 +60,7 @@ class FruitTest extends PHPUnit_Framework_TestCase
     {
         echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
-        $this->assertEquals('fruit', $this->object->getProductType());
+        $this->assertEquals(0.50, $this->object->getUnitPrice());
     }
 
 }

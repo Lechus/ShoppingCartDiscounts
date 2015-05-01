@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'LPP\\Shopping\\Cart' => $baseDir . '/src/cart.php',
     'LPP\\Shopping\\CartInterface' => $baseDir . '/src/cartinterface.php',
+    'LPP\\Shopping\\Fruit' => $baseDir . '/src/fruit.php',
     'LPP\\Shopping\\Product' => $baseDir . '/src/product.php',
     'LPP\\Shopping\\Utils\\StringHelper' => $baseDir . '/src/utils/stringhelper.php',
     'LPP\\Shopping\\View' => $baseDir . '/src/view.php',
