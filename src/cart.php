@@ -1,6 +1,7 @@
 <?php namespace LPP\Shopping;
 
 use LPP\Shopping\Utils\StringHelper;
+use LPP\Shopping\View\View;
 
 /**
  * Cart
@@ -26,20 +27,22 @@ class Cart extends \ArrayObject implements CartInterface
 
     public function getTotalSum()
     {
-        $output = "";
+        $data = array();
+
+        $data['maxLength'] = $this->findMaxLength();
+
         $total = 0;
-        $maxLength = $this->findMaxLength();
+
         foreach ($this->items as $item) {
-            $totalForProduct = $this->getPriceOf($item['product']) * $item['quantity'];
-            $total += $totalForProduct;
-            $output .= str_pad($item['quantity'], 10);
-            $output .= str_pad($item['product']->getName(), $maxLength + 2);
-            $output .= '£' . number_format($totalForProduct, 2);
-            $output .= PHP_EOL;
+            $item['totalPrice'] = $this->getPriceOf($item['product']) * $item['quantity'];
+            $data['items'][] = $item;
+            $total += $item['totalPrice'];
         }
-        $output .= str_pad('-', 10 + $maxLength + 2, "-") . PHP_EOL;
-        $output .= str_pad('Total:', 10 + $maxLength + 2) . '£' . number_format($total, 2);
-        return $output;
+
+        $data['total'] = $total;
+
+        $view = new View($data);
+        return $view->render();
     }
 
     /**
