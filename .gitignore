@@ -2,3 +2,5 @@
 /.idea/
 /vendor/
 v1
+phpunit-4*
+composer.phar
