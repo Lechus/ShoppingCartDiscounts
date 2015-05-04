@@ -18,6 +18,7 @@ class PaymentGatewayContextTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
+     * @covers LPP\Shopping\payment\strategy\PaymentGatewayContext::setPaymentGateway
      * @expectedException InvalidArgumentException
      */
     public function testSetPaymentGatewayException() {
@@ -27,6 +28,7 @@ class PaymentGatewayContextTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
+     * @covers LPP\Shopping\payment\strategy\PaymentGatewayContext::setPaymentGateway
      * @expectedException LogicException
      */
     public function testGetPaymentGatewayException() {
@@ -36,7 +38,7 @@ class PaymentGatewayContextTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers LPP\Shopping\tax\strategy\TaxContext::getTax
+     * @covers LPP\Shopping\payment\strategy\PaymentGatewayContext::getPaymentGateway
      */
     public function testGetPaymentGatewayReturnInstanceOf() {
         echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
