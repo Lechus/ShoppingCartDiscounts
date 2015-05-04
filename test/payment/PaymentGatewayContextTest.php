@@ -28,7 +28,7 @@ class PaymentGatewayContextTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers LPP\Shopping\payment\strategy\PaymentGatewayContext::setPaymentGateway
+     * @covers LPP\Shopping\payment\strategy\PaymentGatewayContext::getPaymentGateway
      * @expectedException LogicException
      */
     public function testGetPaymentGatewayException() {
