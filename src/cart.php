@@ -10,12 +10,15 @@ use LPP\Shopping\View\View;
  */
 class Cart extends \ArrayObject implements CartInterface
 {
-    /** @var array */
     protected $items = array();
+    protected $view;
+    protected $stringHelper;
 
     public function __construct()
     {
         $this->items = array();
+        $this->view = new View();
+        $this->stringHelper = new StringHelper();
         /*
           Construct the underlying ArrayObject using
           $this->items as the foundation array. This
@@ -25,24 +28,31 @@ class Cart extends \ArrayObject implements CartInterface
         parent::__construct($this->items);
     }
 
+    public function getTotal()
+    {
+        $total = 0;
+
+        foreach ($this->items as $item) {
+            $total += $this->getPriceOf($item['product']) * $item['quantity'];
+        }
+
+        return number_format($total, 2);
+    }
+
     public function getTotalSum()
     {
         $data = array();
 
         $data['maxLength'] = $this->findMaxLength();
-
-        $total = 0;
+        $data['total'] = $this->getTotal();
 
         foreach ($this->items as $item) {
             $item['totalPrice'] = $this->getPriceOf($item['product']) * $item['quantity'];
             $data['items'][] = $item;
-            $total += $item['totalPrice'];
         }
 
-        $data['total'] = $total;
-
-        $view = new View($data);
-        return $view->render();
+        $this->view->setData($data);
+        return $this->view->render();
     }
 
     /**
@@ -178,7 +188,7 @@ class Cart extends \ArrayObject implements CartInterface
 
     private function getLengthOfString($productName)
     {
-        return (new StringHelper())->getLengthOfString($productName);
+        return $this->stringHelper->getLengthOfString($productName);
     }
 
 }

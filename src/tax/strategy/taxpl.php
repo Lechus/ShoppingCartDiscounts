@@ -5,7 +5,7 @@
  *
  * @author lpp
  */
-class TaxPL implements TaxInterace
+class TaxPL implements TaxInterface
 {
 
     /**

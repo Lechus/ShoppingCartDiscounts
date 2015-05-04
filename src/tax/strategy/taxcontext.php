@@ -13,7 +13,7 @@ class TaxContext
     private $strategy;
 
     /**
-     * @param TaxInterface $strategy
+     * @param string $country
      *
      * @return void
      */
@@ -40,8 +40,8 @@ class TaxContext
     public function getTax()
     {
         /*
-         * Iinstead of checking if the strategy is set use NullStategy
-         *  object to handle the lack of initialization situations.
+         * Instead of checking if the strategy is set use NullStrategy
+         * object to handle the lack of initialization situations.
          * It encapsulates the implementation decisions of how to do nothing and hides
          * those details from the Context.
          * Or move the Strategy in the constructor

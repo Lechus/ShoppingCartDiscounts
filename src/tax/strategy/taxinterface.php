@@ -1,11 +1,11 @@
 <?php namespace LPP\Shopping\tax\strategy;
 
 /**
- * Class TaxInterace
+ * Class TaxInterface
  *
  * @author lpp
  */
-interface TaxInterace
+interface TaxInterface
 {
 
     /**

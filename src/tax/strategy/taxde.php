@@ -5,7 +5,7 @@
  *
  * @author lpp
  */
-class TaxDE implements TaxInterace
+class TaxDE implements TaxInterface
 {
 
     /**

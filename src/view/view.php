@@ -11,6 +11,11 @@ class View implements ViewInterface
         $this->fields = $fields;
     }
 
+    public function setData(array $fields = array())
+    {
+        $this->fields = $fields;
+    }
+
     private function generateSummary()
     {
         //extract($this->fields);
