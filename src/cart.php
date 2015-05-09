@@ -1,7 +1,6 @@
 <?php namespace LPP\Shopping;
 
-use LPP\Shopping\Utils\StringHelper;
-use LPP\Shopping\View\View;
+use LPP\Shopping\View\ViewInterface;
 
 /**
  * Cart
@@ -14,11 +13,11 @@ class Cart extends \ArrayObject implements CartInterface
     protected $view;
     protected $stringHelper;
 
-    public function __construct()
+    public function __construct(ViewInterface $view, $stringHelper)
     {
         $this->items = array();
-        $this->view = new View();
-        $this->stringHelper = new StringHelper();
+        $this->view = $view;
+        $this->stringHelper = $stringHelper;
         /*
           Construct the underlying ArrayObject using
           $this->items as the foundation array. This

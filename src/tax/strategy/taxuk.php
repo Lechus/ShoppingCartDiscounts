@@ -5,7 +5,7 @@
  *
  * @author lpp
  */
-class TaxEN implements TaxInterface
+class TaxUK implements TaxInterface
 {
     /**
      * {@inheritdoc}

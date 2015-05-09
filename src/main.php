@@ -4,8 +4,13 @@ require_once '../vendor/autoload.php';
 
 use LPP\Shopping\payment\strategy\PaymentGatewayContext;
 use LPP\Shopping\tax\strategy\TaxContext;
+use LPP\Shopping\Utils\StringHelper;
+use LPP\Shopping\View\View;
 
-$cart = new Cart();
+$view = new View();
+$stringHelper = new StringHelper();
+
+$cart = new Cart($view, $stringHelper);
 
 $lemon = new Product('Lemon', 0.50,  array('11' => 0.45));
 $cart->addItem($lemon, 10);
@@ -30,25 +35,14 @@ echo $cart->getTotalSum();
 $tax = new TaxContext();
 
 echo PHP_EOL, PHP_EOL;
-$tax->setCountry("DE");
-echo "Orange: Tax in Germany: " .  $tax->getTax()->count($cart->getPriceOf($orange));
-echo PHP_EOL;
-$tax->setCountry("PL");
-echo "Orange: Tax in Poland: " . $tax->getTax()->count($cart->getPriceOf($orange));
-echo PHP_EOL;
-$tax->setCountry("EN");
-echo "Orange: Tax in UK: " .  $tax->getTax()->count($cart->getPriceOf($orange));
+$tax->setCountry("UK");
+echo "Orange: Tax in UK: " .  $tax->calculateTax($cart->getPriceOf($orange));
 
 
 /*Time for payment*/
 $paymentGateway = new PaymentGatewayContext();
 
 echo PHP_EOL, PHP_EOL;
-$paymentGateway->setPaymentGateway("CC");
-echo "Process payment with CC: ",  $paymentGateway->getPaymentGateway()->pay($cart->getTotal());
-echo PHP_EOL;
 $paymentGateway->setPaymentGateway("PayPal");
-echo "Process payment with PayPal: ", $paymentGateway->getPaymentGateway()->pay($cart->getTotal());
+echo "Process payment with PayPal: ", $paymentGateway->processPayment($cart->getTotal());
 echo PHP_EOL;
-$paymentGateway->setPaymentGateway("Stripe");
-echo "Process payment with Stripe: ", $paymentGateway->getPaymentGateway()->pay($cart->getTotal());

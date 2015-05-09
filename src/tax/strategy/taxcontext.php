@@ -1,7 +1,7 @@
 <?php namespace LPP\Shopping\tax\strategy;
 
 /**
- * Class TaxContex
+ * Class TaxContext
  *
  * @author lpp
  */
@@ -12,6 +12,18 @@ class TaxContext
      */
     private $strategy;
 
+    private $taxStrategies;
+
+    function __construct()
+    {
+        $taxStrategies = array();
+        $taxStrategies["PL"] = new TaxPL();
+        $taxStrategies["DE"] = new TaxDE();
+        $taxStrategies["UK"] = new TaxUK();
+        $this->taxStrategies = $taxStrategies;
+    }
+
+
     /**
      * @param string $country
      *
@@ -19,18 +31,10 @@ class TaxContext
      */
     public function setCountry($country)
     {
-        switch ($country) {
-            case "PL":
-                $this->strategy = new TaxPL();
-                break;
-            case "DE":
-                $this->strategy = new TaxDE();
-                break;
-            case "EN":
-                $this->strategy = new TaxEN();
-                break;
-            default:
-                throw new \InvalidArgumentException('Unknown or not implemented tax for: ' . $country);
+         if(isset($this->taxStrategies[$country])) {
+             $this->strategy = $this->taxStrategies[$country];
+         } else {
+             throw new \InvalidArgumentException('Unknown or not implemented tax for: ' . $country);
         }
     }
 
@@ -50,6 +54,16 @@ class TaxContext
             throw new \LogicException("Strategy is not set");
         }
         return $this->strategy;
+    }
+
+    /**
+     * @param float $net
+     *
+     * @return float
+     */
+    public function calculateTax($net)
+    {
+        return $this->strategy->count($net);
     }
 
 }

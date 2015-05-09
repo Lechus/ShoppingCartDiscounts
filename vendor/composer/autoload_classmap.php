@@ -19,7 +19,7 @@ return array(
     'LPP\\Shopping\\payment\\strategy\\StripeGateway' => $baseDir . '/src/payment/strategy/stripegateway.php',
     'LPP\\Shopping\\tax\\strategy\\TaxContext' => $baseDir . '/src/tax/strategy/taxcontext.php',
     'LPP\\Shopping\\tax\\strategy\\TaxDE' => $baseDir . '/src/tax/strategy/taxde.php',
-    'LPP\\Shopping\\tax\\strategy\\TaxEN' => $baseDir . '/src/tax/strategy/taxen.php',
     'LPP\\Shopping\\tax\\strategy\\TaxInterface' => $baseDir . '/src/tax/strategy/taxinterface.php',
     'LPP\\Shopping\\tax\\strategy\\TaxPL' => $baseDir . '/src/tax/strategy/taxpl.php',
+    'LPP\\Shopping\\tax\\strategy\\TaxUK' => $baseDir . '/src/tax/strategy/taxuk.php',
 );

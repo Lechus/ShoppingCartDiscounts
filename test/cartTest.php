@@ -1,6 +1,8 @@
 <?php
 
 use LPP\Shopping\Cart;
+use LPP\Shopping\View\View;
+use LPP\Shopping\Utils\StringHelper;
 
 class CartTest extends PHPUnit_Framework_TestCase
 {
@@ -15,7 +17,8 @@ class CartTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->cart = new Cart;
+
+        $this->cart = new Cart(new View(), new StringHelper());
     }
 
     /**

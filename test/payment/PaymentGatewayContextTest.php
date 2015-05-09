@@ -27,24 +27,5 @@ class PaymentGatewayContextTest extends \PHPUnit_Framework_TestCase {
         $this->object->setPaymentGateway("Unknown");
     }
 
-    /**
-     * @covers LPP\Shopping\payment\strategy\PaymentGatewayContext::getPaymentGateway
-     * @expectedException LogicException
-     */
-    public function testGetPaymentGatewayException() {
-        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
 
-        $this->object->getPaymentGateway();
-    }
-
-    /**
-     * @covers LPP\Shopping\payment\strategy\PaymentGatewayContext::getPaymentGateway
-     */
-    public function testGetPaymentGatewayReturnInstanceOf() {
-        echo PHP_EOL, 'Executing ', __METHOD__ , PHP_EOL;
-
-        $this->object->setPaymentGateway("PayPal");
-
-        $this->assertInstanceOf( __NAMESPACE__ . '\PayPalGateway', $this->object->getPaymentGateway());
-    }
 }

@@ -24,22 +24,10 @@ class PaymentGatewayContext
 
     }
 
-    /**
-     * @return PaymentGatewayInterface $strategy
-     */
-    public function getPaymentGateway()
+
+    public function processPayment($amountToPay)
     {
-        /*
-         * Instead of checking if the strategy is set use NullStrategy
-         * object to handle the lack of initialization situations.
-         * It encapsulates the implementation decisions of how to do nothing and hides
-         * those details from the Context.
-         * Or move the Strategy in the constructor
-         */
-        if (!$this->strategy) {
-            throw new \LogicException("Strategy is not set");
-        }
-        return $this->strategy;
+        $this->strategy->pay($amountToPay);
     }
 
 }
